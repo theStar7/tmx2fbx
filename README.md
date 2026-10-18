@@ -1,6 +1,6 @@
-# MMD Unity FBX Exporter 1.0.0
+# MMD Unity FBX Exporter
 
-为 **mmd_tools 已导入的 MMD 模型**制作的 Blender 导出插件，将受支持的基础材质转换为 FBX 可识别的直接贴图连接。输出仅包含 **一个 FBX 和 Textures 文件夹**，不生成 materials.json，不输出 Unity .mat，也不安装或更新 Unity 插件或接收脚本。
+针对**[mmd tools](https://github.com/MMD-Blender/blender_mmd_tools)插件**开发，为 **mmd_tools 已导入的 MMD 模型**制作的 Blender 导出插件，将受支持的基础材质转换为 FBX 可识别的直接贴图连接。输出 **一个 FBX 和 Textures 文件夹**
 
 [下载 1.0.0 安装包](https://github.com/theStar7/tmx2fbx/releases/tag/v1.0.0) · [更新记录](CHANGELOG.md) · [MIT 许可证](LICENSE)
 
@@ -11,28 +11,27 @@
 - 可选增加反向面，默认开启；转换只作用于临时导出副本。
 - 面向 Unity URP 原生材质导入，保留受支持的基础色、UV、骨架蒙皮和顶点形态键。
 
-**验证状态：当前 1.0.0 未进行 Blender / Unity 运行测试、安装验证或视觉验收。** 版本号和发行文件核对不代表实际兼容性或渲染验证通过。
-
 ## 安装
 
-1. 在 Blender 的扩展安装界面选择 **Install from Disk**，从上方 Release 下载并选择 `mmd_unity_exporter-1.0.0.zip`（不要选择 GitHub 自动生成的 Source code 压缩包），无需解压。
-2. 启用插件及 MMD Tools，使用 MMD Tools 导入 PMX。
 
-最低声明版本为 Blender 4.2；本版目标环境为 Blender 4.5、MMD Tools 4.5.1、Unity 2022.3、URP 14，未进行本版实际兼容性验证。
+1. 安装 [mmd tools](https://github.com/MMD-Blender/blender_mmd_tools) 插件用于导入pmx模型
+2. 与 Release 界面下载并选择 `mmd_unity_exporter-1.0.0.zip`，压缩包无需解压。在 Blender 的扩展安装界面选择 **Install from Disk**。
+2. 启用插件及 mmd tools插件，使用 MMD Tools 插件导入 PMX。
+最低声明版本为 Blender 4.2；本版目标环境为 Blender 4.5、MMD Tools 4.5.1、Unity 2022.3、URP 14。
 
 ## 导出
 
-在 **3D 视图按 N → MMD → Unity FBX 导出** 打开下面的面板。先选“整体导出模式”，再确认“增加反向面”，最后点击 **MMD → Unity FBX**。
+在 **3D 视图按 N → MMD → Unity FBX 导出** 打开下面的面板。按照需求更改设置，最后点击 **MMD → Unity FBX**。导出fbx模型
 
 ![插件默认导出面板：全部不透明、增加反向面与导出按钮](https://raw.githubusercontent.com/theStar7/tmx2fbx/24ea3a0da150d6b4a83b1831651cff3a6d8f5274/docs/images/panel-default.png)
 
 *图 1：默认面板。下方逐材质分类置灰是正常现象，只有切换到手动模式才可编辑。配图为 Blender 4.5.14 的实际界面，仅展示操作位置。*
 
-1. 切换到 **Object Mode**，选中同一个 MMD 模型的根对象、骨架或网格。
+1. 选 MMD 模型的根对象、骨架或网格。
 2. 打开 **N → MMD → Unity FBX 导出**，在导出按钮上方的 **整体导出模式**下拉框中选择 **全部不透明 / 全部半透明 / 手动选择材质分类**。选中根对象、骨架或网格均可选择；默认全部不透明。
-3. 在同一侧栏选择是否勾选 **增加反向面**；默认勾选；不需要时可取消勾选，保持原几何。已有场景明确保存的关闭选择不会被强行覆盖。此选项与三种透明模式独立。
-4. 点击 **MMD → Unity FBX**，选择任意输出目录并导出。按钮会传入上一步选择的模式，无需在文件窗口寻找选项。**File → Export → MMD → Unity FBX (.fbx)** 也读取同一场景设置。文件窗口若显示模式选项，可在本次导出前调整；执行导出时将该选择记回侧栏。
-5. 将 FBX 与整个 Textures 文件夹一起放入 Unity 的 Assets，保持相对位置。不要求直接从 Blender 导出到 Assets。
+3. 在同一侧栏选择是否 **增加反向面**；默认勾选；不需要时可取消勾选，保持原几何。已有场景明确保存的关闭选择不会被强行覆盖。此选项与三种透明模式独立。
+4. 点击 **MMD → Unity FBX**，选择任意输出目录并导出。
+5. 将 FBX 与整个 Textures 文件夹一起放入 Unity 的 Assets，保持相对位置不变。
 
 ```text
 YourModel.fbx
@@ -55,12 +54,10 @@ Textures/
 | 模式 | 行为 |
 | --- | --- |
 | **全部不透明（默认）** | 忽略所有透明度，包括镂空和半透明；派生 PNG 的 Alpha 设为 1，材质不连接透明通道。 |
-| **全部半透明** | 所有材质都输出透明连接，包括 Alpha 全为 1 的贴图和无贴图纯色材质；保留原有效 Alpha，不统一降为 0.5。 |
-| **手动选择材质分类** | 使用各材质的自动、不透明或半透明分类；自动分类仍可推断透明度，镂空输出为不透明。 |
+| **全部半透明** | 所有材质都输出透明连接，包括 Alpha 全为 1 的贴图和无贴图纯色材质；保留原有效 Alpha。 |
+| **手动选择材质分类** | 使用各材质的自动、不透明或半透明分类；自动分类仍可推断透明度。AlphaClip材质输出为不透明材质。 |
 
 **全部不透明**与**全部半透明**覆盖逐材质分类。全部半透明模式中，Alpha=1 的部分仍呈实心外观，但也进入透明队列、关闭深度写入。
-
-镂空转不透明会填满原来的孔洞，可能显示贴图中原先隐藏的黑色或其他颜色。本版不输出 Alpha Clipping。
 
 不透明材质通过正常深度测试和深度写入处理遮挡。手动选择材质分类及全部半透明仍有 Unity 原生透明排序限制，不能保证任意视角、骨骼动作或相交透明面都正确。全部半透明也不承诺实心外观部分的遮挡稳定性。
 
@@ -101,17 +98,10 @@ Textures/
 
 ## Unity 原生接收
 
-项目需要启用 URP。使用模型导入器 Materials 页的 **Import via MaterialDescription** 和 **Use Embedded Materials**，由 Unity 自带导入器生成 Lit 材质。FBX 中的不透明材质不携带透明连接；半透明材质通过 `TransparentColor` 贴图连接声明。Lit 的 Blending Mode 沿用原生 Alpha 默认值，本版没有 Unity 端脚本强制修正材质状态。
+项目针对 URP 开发。由 Unity 自带导入器生成 Lit 材质。FBX 中的不透明材质不携带透明连接；半透明材质通过 `TransparentColor` 贴图连接声明。Lit 的 Blending Mode 沿用原生 Alpha 默认值。
 
 不同 Unity 版本、项目导入偏好和已有材质映射可能影响结果。本版没有实际验证零操作导入或最终渲染行为。
 
-## 从旧版导出迁移
-
-如果目标位置存在与该 FBX 匹配的旧版自有 materials.json，插件会停止导出并提示先备份、移出该清单及其 .meta，避免项目中残留的旧接收脚本继续配置新材质。插件不会自动删除任何项目文件。
-
-新建输出目录或使用新文件名可保留旧版资源作为备份。已有 Extract Materials / Remap 材质不会被新版自动更新；需要使用 Unity 原生 Materials 页统一解除旧映射并重新导入。其他模型仍依赖旧脚本时应保留旧脚本，本版不会修改它。
-
-材质槽发生变化时，Unity 中已创建的实例可能仍持有旧数组，需要重新实例化更新后的 FBX。
 
 ## 转换范围与源保护
 
@@ -121,13 +111,13 @@ Textures/
 
 自定义基础色 Mapping、其他投影或贴图边界模式、基础色自定义节点等维持现有拒绝规则；需要 Alpha 的模式不支持任意自定义 Alpha 网络。基础贴图缺失会报错。无基础贴图的纯色材质生成 1×1 PNG。
 
-不复现 MMD Toon、Sphere、高光语义、描边、材质 Morph、动画、IK 或物理求解；Unity 光照与 Blender/MMD 显示可能不同。
+不支持 MMD Toon、Sphere、高光语义、描边、材质 Morph、动画、IK 或物理求解；Unity 光照与 Blender/MMD 显示可能不同。
 
 ## 开发与打包
 
-插件运行文件为 `blender_manifest.toml`、`__init__.py`、`materials.py`、`exporter.py`。发行 ZIP 另外包含 LICENSE 和本 README，共六项，不包含 Unity 接收脚本、模型或私有贴图。
+插件运行文件为 `blender_manifest.toml`、`__init__.py`、`materials.py`、`exporter.py`。发行 ZIP 另外包含 LICENSE 和本 README，共六项。
 
-仓库仅收录当前插件与发布所需文件；不包含模型、贴图素材、本机备份、历史 Unity 接收脚本及旧流程测试。目录如下：
+仓库仅收录当前插件与发布所需文件；
 
 ```text
 mmd_unity_exporter/
