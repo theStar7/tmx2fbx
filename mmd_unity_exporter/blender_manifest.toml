@@ -1,0 +1,13 @@
+schema_version = "1.0.0"
+id = "mmd_unity_exporter"
+version = "1.0.0"
+name = "MMD Unity FBX Exporter"
+tagline = "Export MMD models with portable textures for Unity URP"
+maintainer = "MMD Unity Exporter Contributors"
+type = "add-on"
+tags = ["Import-Export"]
+blender_version_min = "4.2.0"
+license = ["SPDX:MIT"]
+
+[permissions]
+files = "Write exported FBX files and PNG textures"

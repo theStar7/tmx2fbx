@@ -1,0 +1,15 @@
+# Only publish the current add-on and release documentation.
+/*
+!/.gitignore
+!/README.md
+!/CHANGELOG.md
+!/LICENSE
+!/tools/
+/tools/*
+!/tools/package.py
+!/mmd_unity_exporter/
+/mmd_unity_exporter/*
+!/mmd_unity_exporter/__init__.py
+!/mmd_unity_exporter/blender_manifest.toml
+!/mmd_unity_exporter/materials.py
+!/mmd_unity_exporter/exporter.py
