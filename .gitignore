@@ -13,3 +13,12 @@
 !/mmd_unity_exporter/blender_manifest.toml
 !/mmd_unity_exporter/materials.py
 !/mmd_unity_exporter/exporter.py
+
+# Publish only the README screenshots from the local docs directory.
+!/docs/
+/docs/*
+!/docs/images/
+/docs/images/*
+!/docs/images/panel-default.png
+!/docs/images/export-modes.png
+!/docs/images/material-classification.png

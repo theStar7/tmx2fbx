@@ -22,6 +22,12 @@
 
 ## 导出
 
+在 **3D 视图按 N → MMD → Unity FBX 导出** 打开下面的面板。先选“整体导出模式”，再确认“增加反向面”，最后点击 **MMD → Unity FBX**。
+
+![插件默认导出面板：全部不透明、增加反向面与导出按钮](https://raw.githubusercontent.com/theStar7/tmx2fbx/main/docs/images/panel-default.png)
+
+*图 1：默认面板。下方逐材质分类置灰是正常现象，只有切换到手动模式才可编辑。配图为 Blender 4.5.14 的实际界面，仅展示操作位置。*
+
 1. 切换到 **Object Mode**，选中同一个 MMD 模型的根对象、骨架或网格。
 2. 打开 **N → MMD → Unity FBX 导出**，在导出按钮上方的 **整体导出模式**下拉框中选择 **全部不透明 / 全部半透明 / 手动选择材质分类**。选中根对象、骨架或网格均可选择；默认全部不透明。
 3. 在同一侧栏选择是否勾选 **增加反向面**；默认勾选；不需要时可取消勾选，保持原几何。已有场景明确保存的关闭选择不会被强行覆盖。此选项与三种透明模式独立。
@@ -39,6 +45,12 @@ Textures/
 贴图目录及文件名保持稳定；重新导出会覆盖同名 FBX 及其对应的派生贴图。请为不同模型使用不同文件名。源图不会被覆盖。
 
 ## 三种材质导出模式
+
+点击 **整体导出模式** 下拉框，可在以下三种模式间切换；这是整个模型的导出策略。
+
+![整体导出模式下拉框：全部不透明、全部半透明、手动选择材质分类](https://raw.githubusercontent.com/theStar7/tmx2fbx/main/docs/images/export-modes.png)
+
+*图 2：整体模式入口位于导出按钮上方，不需要去文件保存窗口寻找。*
 
 | 模式 | 行为 |
 | --- | --- |
@@ -68,6 +80,10 @@ Textures/
 ## Blender 中的材质分类
 
 先将侧栏的 **整体导出模式**设为 **手动选择材质分类**，再选中网格，在 **N → MMD → Unity FBX 导出 → 当前材质 → 材质分类**设置。其他整体模式会将此分类控件置灰；根对象没有当前材质时不显示逐材质分类，但仍显示整体模式。
+
+![手动模式下的材质分类下拉框：自动、不透明、半透明](https://raw.githubusercontent.com/theStar7/tmx2fbx/main/docs/images/material-classification.png)
+
+*图 3：先选“手动选择材质分类”，再选中模型网格及其目标材质，在“当前材质”下方选择分类。截图中的“肌”是当前选中材质的名称，不是固定选项。*
 
 逐材质分类仅影响**手动选择材质分类**模式：
 
@@ -121,6 +137,8 @@ mmd_unity_exporter/
   materials.py
 tools/
   package.py
+docs/
+  images/                  # README 实际界面截图
 CHANGELOG.md
 LICENSE
 README.md
